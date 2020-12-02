@@ -28,7 +28,7 @@ def part1():
     return valid
     
     
-    
+
 print(part1())
 
 def part2():
