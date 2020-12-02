@@ -1,7 +1,6 @@
 
 def part1():
     f = open("/home/ec2-user/environment/AOC/Resources/problem2.txt")
-    s = set()
     current = f.readline().strip()
     valid = 0
     while(current is not None and current != ""):
@@ -33,7 +32,6 @@ print(part1())
 
 def part2():
     f = open("/home/ec2-user/environment/AOC/Resources/problem2.txt")
-    s = set()
     current = f.readline().strip()
     valid = 0
     while(current is not None and current != ""):
