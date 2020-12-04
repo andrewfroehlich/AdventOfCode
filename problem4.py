@@ -41,15 +41,12 @@ def validate(splitPassport):
         y = x.split(":")
         key = y[0]
         val = y[1]
-        if key == "byr":
-            if not (1920 <= int(val) <= 2002):
-                return False
-        elif key == "iyr":
-            if not (2010 <= int(val) <= 2020):
-                return False
-        elif key == "eyr":
-            if not (2020 <= int(val) <= 2030):
-                return False
+        if key == "byr" and not (1920 <= int(val) <= 2002):
+            return False
+        elif key == "iyr" and not (2010 <= int(val) <= 2020):
+            return False
+        elif key == "eyr" and not (2020 <= int(val) <= 2030):
+            return False
         elif key == "hgt":
             if "cm" in val:
                 if not (150 <= int(val.replace("cm","")) <= 193):
@@ -59,21 +56,13 @@ def validate(splitPassport):
                     return False
             else:
                 return False
-        elif key == "hcl":
-            if not (len(val) == 7 and re.search("#[0-9a-f]{6}",val) is not None):
-                return False
-        elif key == "ecl":
-            if val not in validEyeColors:
-                return False
-        elif key == "pid":
-            if not (len(val) == 9 and re.search("[0-9]{9}",val) is not None):
-                return False
-        else:
-            print("Unexpected key found: "+key)
+        elif key == "hcl" and not bool(re.match("^#([0-9a-f]{6})$",val)): 
+            return False
+        elif key == "ecl" and val not in validEyeColors:
+            return False
+        elif key == "pid" and not bool(re.match("^([0-9]{9})$",val)):
             return False
     return True
-
-
 
 print(problem4(False))
 print(problem4(True))
