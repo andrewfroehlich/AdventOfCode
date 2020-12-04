@@ -1,5 +1,6 @@
 import re
 
+
 validEyeColors = ["amb","blu","brn","gry","grn","hzl","oth"]
 
 def problem4(validateInputs):
