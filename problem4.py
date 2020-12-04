@@ -10,8 +10,6 @@ def problem4(validateInputs):
         if current == "\n":
             if checkPassport(passport, validateInputs):
                 valid += 1
-            else:
-                passportWithoutCid = [s for s in passport.split() if "cid:" not in s]
             #clear passport for next run
             passport = ""
         else:
@@ -20,8 +18,6 @@ def problem4(validateInputs):
     # the input won't end with a "\n" line, so we need to check one last time
     if checkPassport(passport, validateInputs):
         valid += 1
-    else:
-        print(passport)
     
     return valid
 
@@ -49,7 +45,7 @@ def validate(splitPassport):
             if not (1920 <= int(val) <= 2002):
                 return False
         elif key == "iyr":
-            if not(2010 <= int(val) <= 2020):
+            if not (2010 <= int(val) <= 2020):
                 return False
         elif key == "eyr":
             if not (2020 <= int(val) <= 2030):
@@ -64,7 +60,7 @@ def validate(splitPassport):
             else:
                 return False
         elif key == "hcl":
-            if not(len(val) == 7 and re.search("#[0-9a-f]{6}",val) is not None):
+            if not (len(val) == 7 and re.search("#[0-9a-f]{6}",val) is not None):
                 return False
         elif key == "ecl":
             if val not in validEyeColors:
