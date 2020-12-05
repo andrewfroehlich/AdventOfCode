@@ -4,19 +4,15 @@ def problem5():
     maxVal = 0
     ids = set()
     for current in f.readlines():
-        row = int(current[:7].replace("F","0").replace("B","1"),2)
-        seat = int(current[7:].replace("L","0").replace("R","1"),2)
-        seatId = row*8 + seat
+        seatId = int(current.replace("F","0").replace("B","1")
+            .replace("L","0").replace("R","1"),2)
         ids.add(seatId)
         maxVal = max(maxVal, seatId)
     
     print(maxVal)
     currentId = maxVal
-    while True:
-        if currentId in ids:
-            currentId -= 1
-        else:
-            return currentId
-    return 0
+    while currentId in ids:
+        currentId -= 1
+    return currentId
 
 print(problem5())
