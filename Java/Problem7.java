@@ -7,14 +7,11 @@ class Problem7 {
         
         try{
             DAG d = buildDAG(file);
-                    
             System.out.println("Part 1: "+part1(d));
-            
             System.out.println("Part 2: "+part2(d));
         } catch (Exception e) {
             e.printStackTrace();
         }
-        
     }
     
     public static DAG buildDAG(File file) throws Exception{
@@ -38,9 +35,7 @@ class Problem7 {
                     count = Integer.parseInt(countString);
                     containsColor = c.substring(c.indexOf(" ")+1, c.lastIndexOf(" "));
                     Node containsNode = d.add(containsColor);
-                    Edge e = new Edge(containingNode, containsNode, count);
-                    containingNode.containsEdges.add(e);
-                    containsNode.containedEdges.add(e);
+                    d.addEdge(containingNode, containsNode, count);
                 }
             }
             
@@ -80,14 +75,14 @@ class Problem7 {
         } else {
             int returnVal = 1;
             for(Edge e : edges){
-                Node containsNode = e.small;
-                returnVal += e.containsCount * addCount(containsNode.containsEdges);
+                returnVal += e.containsCount * addCount(e.small.containsEdges);
             }
             return returnVal;
         }
     }
 }
 
+// DAG does not enforce no cycles, but it does enforce creating only one Node per value
 class DAG {
     HashMap<String, Node> refs;
     
@@ -107,6 +102,12 @@ class DAG {
     
     public Node get(String val){
         return refs.get(val);
+    }
+    
+    public void addEdge(Node big, Node small, int count){
+        Edge e = new Edge(big, small, count);
+        big.containsEdges.add(e);
+        small.containedEdges.add(e);
     }
 }
 
