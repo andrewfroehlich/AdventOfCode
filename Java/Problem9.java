@@ -1,16 +1,24 @@
 import java.io.*;
 import java.util.*;
+import java.time.*;
 
 class Problem9 {
     public static void main(String args[]){
+        Instant i1 = Instant.now();
         File file = new File("/home/ec2-user/environment/AOC/Resources/problem9.txt");
         
         try{
+            Instant i2 = Instant.now();
             XMAS x = new XMAS(25);
             Long invalidNumber = part1(file,x);
+            Instant i3 = Instant.now();
             System.out.println("Part 1: "+invalidNumber);
-            
             System.out.println("Part 2: "+part2(file, invalidNumber));
+            Instant i4 = Instant.now();
+            System.out.println(String.format("File def: %s, Part 1: %s, Part 2: %s", 
+                Duration.between(i1, i2).toMillis(),
+                Duration.between(i2, i3).toMillis(),
+                Duration.between(i3, i4).toMillis()));
         } catch (Exception e) {
             e.printStackTrace();
         }
