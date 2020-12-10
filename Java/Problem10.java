@@ -7,15 +7,15 @@ class Problem10 {
         File file = new File("/home/ec2-user/environment/AOC/Resources/problem10.txt");
         
         try{
-            ArrayList<Integer> vals = buildList(file);
-            Instant i2 = Instant.now();
+            Instant i0 = Instant.now();
+            ArrayList<Integer> vals = buildSortedList(file);
             System.out.println("Part 1: "+part1(vals));
-            Instant i3 = Instant.now();
+            Instant i1 = Instant.now();
             System.out.println("Part 2: "+part2(vals));
-            Instant i4 = Instant.now();
+            Instant i2 = Instant.now();
             System.out.println(String.format("Part 1: %s, Part 2: %s", 
-                Duration.between(i2, i3).toMillis(),
-                Duration.between(i3, i4).toMillis()));
+                Duration.between(i0, i1).toMillis(),
+                Duration.between(i1, i2).toMillis()));
             
         } catch (Exception e) {
             e.printStackTrace();
@@ -23,18 +23,18 @@ class Problem10 {
         
     }
     
-    public static ArrayList<Integer> buildList(File file) throws Exception{
+    public static ArrayList<Integer> buildSortedList(File file) throws Exception{
         BufferedReader br = new BufferedReader(new FileReader(file));
         ArrayList<Integer> vals = new ArrayList<Integer>();
         String current;
         while ((current = (br.readLine())) != null) {
             vals.add(Integer.parseInt(current));
         }
+        Collections.sort(vals);
         return vals;
     }
     
     public static int part1(ArrayList<Integer> vals) throws Exception{
-        Collections.sort(vals);
         int previousValue = 0;
         int oneJumps = 0;
         //the last value is 3 more than max, so add one to threeJumps (start at 1)
