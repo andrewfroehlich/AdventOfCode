@@ -55,11 +55,11 @@ class Problem14 {
             if(split[0].equals("mask")){
                 m = new AddressMask(split[1]);
             } else {
-                Long locInt = Long.parseLong(split[0].substring(4, split[0].indexOf("]")));
+                Long loc = Long.parseLong(split[0].substring(4, split[0].indexOf("]")));
                 Long value = Long.parseLong(split[1]);
-                memoryLocs = m.apply(locInt);
-                for(Long loc : memoryLocs){
-                    memory.put(loc, value);
+                memoryLocs = m.apply(loc);
+                for(Long l : memoryLocs){
+                    memory.put(l, value);
                 }
             }
         }
