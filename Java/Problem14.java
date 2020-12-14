@@ -74,15 +74,15 @@ class Problem14 {
 
 class Mask{
     long orMask;
-    long andMask;
+    long andMaskInverse;
     public Mask(String s){
         orMask = 0;
-        andMask = Integer.MAX_VALUE;
+        andMaskInverse = 0;
         
         long twos = 1L;
         for(int i = s.length()-1; i >= 0; i--){
             if(s.charAt(i) == '0'){
-                andMask -= twos;
+                andMaskInverse += twos;
             } else if(s.charAt(i) == '1'){
                 orMask += twos;
             }
@@ -91,7 +91,7 @@ class Mask{
     }
     
     public long apply(int num){
-        return (num & andMask) | orMask;
+        return (num & ~andMaskInverse) | orMask;
     }
 }
 
