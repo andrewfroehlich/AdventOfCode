@@ -1,14 +1,19 @@
 import java.io.*;
 import java.util.*;
+import java.time.*;
 
 class Problem17 {
     public static void main(String args[]){
-        File file = new File("/home/ec2-user/environment/AOC/Resources/problem17.txt");
-        
         try{
+            Instant i0 = Instant.now();
+            File file = new File("/home/ec2-user/environment/AOC/Resources/problem17.txt");
             System.out.println("Part 1: "+part1(file));
-            
+            Instant i1 = Instant.now();
             System.out.println("Part 2: "+part2(file));
+            Instant i2 = Instant.now();
+            System.out.println(String.format("Part 1: %s, Part 2: %s", 
+                Duration.between(i0, i1).toMillis(),
+                Duration.between(i1, i2).toMillis()));
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -44,7 +49,7 @@ class Grid{
         int x = 0;
         while ((current = (br.readLine())) != null) {
             for(int y=0; y < current.length(); y++){
-                grid.put(new Coordinate(x, y, 0), current.charAt(y) == '#' ? Cube.ACTIVE : Cube.INACTIVE);
+                grid.put(new Coordinate(x, y, 0, 0), current.charAt(y) == '#' ? Cube.ACTIVE : Cube.INACTIVE);
             }
             x++;
             y_high = current.length() - 1;
@@ -189,12 +194,6 @@ class Coordinate{
     int y;
     int z;
     int w;
-    public Coordinate(int xval, int yval, int zval){
-        x = xval;
-        y = yval;
-        z = zval;
-        w = 0;
-    }
     public Coordinate(int xval, int yval, int zval, int wval){
         x = xval;
         y = yval;
@@ -203,7 +202,7 @@ class Coordinate{
     }
     @Override
     public int hashCode() {
-        return ((Integer)(x + 3*y + 8*z + 10*w)).hashCode();
+        return ((Integer)(x + 4*y + 9*z + 13*w)).hashCode();
     }
     @Override
     public boolean equals(Object obj) {
