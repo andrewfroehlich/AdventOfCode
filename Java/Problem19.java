@@ -32,13 +32,14 @@ class Problem19 {
             }
             String[] split = current.split(": ");
             int i = Integer.parseInt(split[0]);
-			// remove the quotes around a and b if they're there
-			h.put(i, split[1].replace("\"", ""));
+            // remove the quotes around a and b if they're there
+            h.put(i, split[1].replace("\"", ""));
         }
         
         String re = "^" + makeRegex(0) + "$";
         int matches = 0;
         while ((current = (br.readLine())) != null) {
+        	//add to messages for part 2
             messages.add(current);
             if(!current.equals("") && current.matches(re)){
                 matches++;
@@ -50,56 +51,56 @@ class Problem19 {
     
     public static int part2(File file) throws Exception{
         String rule42 = makeRegex(42);
-		String rule31 = makeRegex(31);
+        String rule31 = makeRegex(31);
 
         //build disgusting possible regex assuming max of 5 loops
-		String masterRegex = "(" + rule42 + "+)(";
-		for (int i = 1; i < 5; i++) {
-			masterRegex += "(";
-			for (int j = 1; j <= i; j++) {
-				masterRegex += rule42;
-			}
-			for (int j = 1; j <= i; j++) {
-				masterRegex += rule31;
-			}
-			masterRegex += ")";
-			if (i < 4) {
-				masterRegex += "|";
-			}
-		}
-		masterRegex = "^(" + masterRegex + "))$";
+        String masterRegex = "(" + rule42 + "+)(";
+        for (int i = 1; i < 5; i++) {
+            masterRegex += "(";
+            for (int j = 1; j <= i; j++) {
+                masterRegex += rule42;
+            }
+            for (int j = 1; j <= i; j++) {
+                masterRegex += rule31;
+            }
+            masterRegex += ")";
+            if (i < 4) {
+                masterRegex += "|";
+            }
+        }
+        masterRegex = "^(" + masterRegex + "))$";
 
-		int count = 0;
-		for (String m : messages) {
-			if (m.matches(masterRegex)) {
-				count++;
-			}
-		}
+        int count = 0;
+        for (String m : messages) {
+            if (m.matches(masterRegex)) {
+                count++;
+            }
+        }
 
-		return count;
+        return count;
     }
     
     private static String makeRegex(int i) {
-		// keep going while there's still a number
-		while ((h.get(i)).matches(".*\\d.*")) {
-			String[] parts = (h.get(i)).split(" ");
-			String current = ""; 
-			for (String part : parts) {
-				if (part.matches("\\d+")) {
-					// if simply numerical, add the rule from that index, otherwise prepare to be split next round
-					String nestedRule = h.get(Integer.parseInt(part));
-					if (nestedRule.matches("[ab]")) {
-						current += nestedRule;
-					} else {
-						current += "( " + nestedRule + " )";
-					}
-				} else {
-					// just a/b, add it
-					current += part;
-				}
-			}
-    		h.put(i, current);
-		}
-		return "(" + h.get(i) + ")";
-	}
+        // keep going while there's still a number
+        while ((h.get(i)).matches(".*\\d.*")) {
+            String[] parts = (h.get(i)).split(" ");
+            String current = ""; 
+            for (String part : parts) {
+                if (part.matches("\\d+")) {
+                    // if simply numerical, add the rule from that index, otherwise prepare to be split next round
+                    String nestedRule = h.get(Integer.parseInt(part));
+                    if (nestedRule.matches("[ab]")) {
+                        current += nestedRule;
+                    } else {
+                        current += "( " + nestedRule + " )";
+                    }
+                } else {
+                    // just a/b, add it
+                    current += part;
+                }
+            }
+            h.put(i, current);
+        }
+        return "(" + h.get(i) + ")";
+    }
 }
