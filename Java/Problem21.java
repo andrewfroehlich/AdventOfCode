@@ -32,7 +32,6 @@ class Problem21 {
                 }
                 String currentAllergen = allergenList.get(index);
                 HashSet<String> matchingIngredients = null;
-                
                 for(Recipe r : recipes){
                     if(r.allergens.contains(currentAllergen)){
                         if(matchingIngredients == null){
@@ -42,6 +41,7 @@ class Problem21 {
                         }
                     }
                 }
+                //If there is only one matching ingredient, process it by removing it from the lists, and save it in a list for Part 2
                 if(matchingIngredients.size() == 1){
                     String ing = matchingIngredients.toArray(new String[1])[0];
                     for(Recipe rec:recipes){
@@ -51,9 +51,9 @@ class Problem21 {
                     allergenList.remove(index);
                     dangerousIngredients.add(new Ingredient(ing, currentAllergen));
                 } else {
+                    //Only increment the index if it wasn't processed, as removing the item from the list shifts indices anyway
                     index++;
                 }
-                
             }
             
             //All matched ingredients/allergens have been removed, simply count the ingredients left
