@@ -9,7 +9,7 @@ class Problem23 {
             Instant i0 = Instant.now();
             System.out.println("Part 1: "+solve(input, 100, false));
             Instant i1 = Instant.now();
-            System.out.println("Part 2: "+solve(input, 10000000, true));
+            //System.out.println("Part 2: "+solve(input, 10000000, true));
             Instant i2 = Instant.now();
             System.out.println(String.format("Part 1: %s, Part 2: %s", 
                 Duration.between(i0, i1).toMillis(),
@@ -21,23 +21,22 @@ class Problem23 {
     
     public static String solve(String input, int moves, boolean partTwo) throws Exception{
         ArrayList<Integer> list = new ArrayList<Integer>();
-        int size = input.length();
+        int size = partTwo ? 1000000 : input.length();
         int currentIndex = 0;
-        for(int i=0; i<size; i++){
-            /*if(input.charAt(i) == '1'){
-                currentIndex = (i+1)%size;
-            }*/
+        for(int i=0; i<input.length(); i++){
             list.add(Character.getNumericValue(input.charAt(i)));
         }
         // if part 2, keep adding up to 1,000,000
         if(partTwo){
-            for(int i=size+1; i <= 1000000; i++){
+            for(int i=input.length()+1; i <= 1000000; i++){
                 list.add(i);
             }
         }
         
         int movesCompleted = 0;
         while(movesCompleted < moves){
+            //if(movesCompleted % 50000 == 0) System.out.println(String.format("Move #%s",movesCompleted));
+            
             // remove the next three cups
             int target = (list.get(currentIndex))-1;
             boolean decCurrentIndex = false;
