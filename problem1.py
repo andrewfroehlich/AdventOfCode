@@ -9,7 +9,7 @@ def part1():
             answer += 1
         prev = currInt
         current = f.readline()
-    return str(answer)
+    return answer
 
 def part2():
     f = open("input1.txt")
@@ -32,7 +32,7 @@ def part2():
     # Need one more run as the last loop "completes" a windows
     if windows.pop(0) > prevWindow:
         answer += 1
-    return str(answer)
+    return answer
 
-print("Part 1: "+part1())
-print("Part 2: "+part2())
+print("Part 1:",part1())
+print("Part 2:",part2())
