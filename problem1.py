@@ -1,4 +1,3 @@
-
 def part1():
     f = open("input1.txt")
     currInt = answer = 0
@@ -11,8 +10,6 @@ def part1():
         prev = currInt
         current = f.readline()
     return str(answer)
-
-print("1: "+part1())
 
 def part2():
     f = open("input1.txt")
@@ -29,7 +26,7 @@ def part2():
                 answer += 1
             prevWindow = currWindow
         for i in range(len(windows)):
-            windows[i] = windows[i] + currInt
+            windows[i] += currInt
         windows.append(currInt)
         current = f.readline()
     # Need one more run as the last loop "completes" a windows
@@ -37,4 +34,5 @@ def part2():
         answer += 1
     return str(answer)
 
-print("2: "+part2())
+print("Part 1: "+part1())
+print("Part 2: "+part2())
