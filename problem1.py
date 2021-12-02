@@ -14,17 +14,14 @@ def part2():
     prevWindow = 100000
     windows = []
     for line in f:
+        for i in range(len(windows)):
+            windows[i] += int(line)
+        windows.append(int(line))
         if len(windows) > 2:
             currWindow = windows.pop(0)
             if currWindow > prevWindow:
                 answer += 1
             prevWindow = currWindow
-        for i in range(len(windows)):
-            windows[i] += int(line)
-        windows.append(int(line))
-    # Need one more run as the last loop "completes" a windows
-    if windows.pop(0) > prevWindow:
-        answer += 1
     return answer
 
 print("Part 1:",part1())
