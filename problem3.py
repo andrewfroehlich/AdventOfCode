@@ -13,13 +13,13 @@ while index >= 0:
     epsilon += multiplier  * (0 if onesByPosition[index] > 0 else 1)
     multiplier = multiplier * 2
     index -= 1
-print("Part 1:",gamma*epsilon)
+print("Part 1:", gamma * epsilon)
 
 #Part 2
 f = open("input3.txt")
 oxygen = []
 co2 = []
-#first loop to populate the lists
+#first loop to populate the lists from the file
 for line in f:
     if onesByPosition[0] == int(line[0]):
         oxygen.append(line.strip())
@@ -28,22 +28,22 @@ for line in f:
 #now loop remaining indices
 for index in range(1, len(onesByPosition)):
     if len(oxygen) > 1:
-        ox1s = []
-        ox0s = []
+        a1 = []
+        a0 = []
         for line in oxygen:
             if line[index] == '1':
-                ox1s.append(line)
+                a1.append(line)
             else:
-                ox0s.append(line)
-        oxygen = ox1s if (len(ox1s) >= len(ox0s)) else ox0s
+                a0.append(line)
+        oxygen = a1 if (len(a1) >= len(a0)) else a0
     if len(co2) > 1:
-        co1s = []
-        co0s = []
+        a1 = []
+        a0 = []
         for line in co2:
             if line[index] == '1':
-                co1s.append(line)
+                a1.append(line)
             else:
-                co0s.append(line)
-        co2 = co0s if (len(co0s) <= len(co1s)) else co1s
+                a0.append(line)
+        co2 = a0 if (len(a0) <= len(a1)) else a1
 
-print("Part 2:",int(oxygen[0], 2) * int(co2[0], 2))
+print("Part 2:", int(oxygen[0], 2) * int(co2[0], 2))
