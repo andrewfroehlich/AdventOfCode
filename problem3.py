@@ -1,6 +1,6 @@
 #Part 1
 f = open("input3.txt")
-onesByPosition = [0 for i in range(12)]
+onesByPosition = [0 for i in range(len(f.readline().strip()))]
 for line in f:
     for index in range(len(line.strip())):
         onesByPosition[index] += (1 if line[index] == '1' else -1)
@@ -16,7 +16,6 @@ while index >= 0:
 print("Part 1:", gamma * epsilon)
 
 #Part 2
-f = open("input3.txt")
 oxygen = []
 co2 = []
 #first loop to populate the lists from the file
