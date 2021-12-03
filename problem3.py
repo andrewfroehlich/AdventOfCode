@@ -16,6 +16,7 @@ while index >= 0:
 print("Part 1:", gamma * epsilon)
 
 #Part 2
+f = open("input3.txt")
 oxygen = []
 co2 = []
 #first loop to populate the lists from the file
