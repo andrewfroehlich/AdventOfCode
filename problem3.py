@@ -46,4 +46,4 @@ for index in range(1, len(onesByPosition)):
                 co0s.append(line)
         co2 = co0s if (len(co0s) <= len(co1s)) else co1s
 
-print("Part 2:",int("".join(str(x) for x in oxygen), 2) * int("".join(str(x) for x in co2), 2))
+print("Part 2:",int(oxygen[0], 2) * int(co2[0], 2))
