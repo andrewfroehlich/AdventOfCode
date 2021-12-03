@@ -27,33 +27,23 @@ for line in f:
         co2.append(line.strip())
 #now loop remaining indices
 for index in range(1, len(onesByPosition)):
-    if len(oxygen) == 1:
-        break
-    ox1s = []
-    ox0s = []
-    for line in oxygen:
-        if line[index] == '1':
-            ox1s.append(line)
-        else:
-            ox0s.append(line)
-    oxygen = ox1s if (len(ox1s) >= len(ox0s)) else ox0s
-for index in range(1, len(onesByPosition)):
-    if len(co2) == 1:
-        break
-    co1s = []
-    co0s = []
-    for line in co2:
-        if line[index] == '1':
-            co1s.append(line)
-        else:
-            co0s.append(line)
-    co2 = co0s if (len(co0s) <= len(co1s)) else co1s
-index = len(onesByPosition)-1
-multiplier = 1
-oxRating = co2Rating = 0
-while index >= 0:
-    oxRating += multiplier * (1 if oxygen[0][index] == '1' else 0)
-    co2Rating += multiplier  * (1 if co2[0][index] == '1' else 0)
-    multiplier = multiplier * 2
-    index -= 1
-print("Part 2:",oxRating*co2Rating)
+    if len(oxygen) > 1:
+        ox1s = []
+        ox0s = []
+        for line in oxygen:
+            if line[index] == '1':
+                ox1s.append(line)
+            else:
+                ox0s.append(line)
+        oxygen = ox1s if (len(ox1s) >= len(ox0s)) else ox0s
+    if len(co2) > 1:
+        co1s = []
+        co0s = []
+        for line in co2:
+            if line[index] == '1':
+                co1s.append(line)
+            else:
+                co0s.append(line)
+        co2 = co0s if (len(co0s) <= len(co1s)) else co1s
+
+print("Part 2:",int("".join(str(x) for x in oxygen), 2) * int("".join(str(x) for x in co2), 2))
