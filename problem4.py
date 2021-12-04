@@ -4,11 +4,10 @@ def checkForBingo(board, i, j):
         if board[x][j] != -1:
             bingo = False
             break
-    if bingo:
-        return bingo
-    for y in range(len(board[i])):
-        if board[i][y] != -1:
-            return False
+    if not bingo:
+        for y in range(len(board[i])):
+            if board[i][y] != -1:
+                return False
     return True
 
 def getScore(board, lastNum):
