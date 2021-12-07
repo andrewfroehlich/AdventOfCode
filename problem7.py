@@ -10,19 +10,17 @@ def part1(crabs):
 
 def part2(crabs):
     mean = statistics.mean(crabs)
-    meanFloor = math.floor(mean)
-    meanCeil = math.ceil(mean)
+    meanFloor = int(math.floor(mean))
+    meanCeil = int(math.ceil(mean))
     fuelFloor = fuelCeil = 0
     for i in crabs:
         nFloor = abs(i - meanFloor)
-        fuelFloor += (nFloor*(nFloor+1))/2
+        fuelFloor += int((nFloor*(nFloor+1))/2)
         nCeil = abs(i - meanCeil)
-        fuelCeil += (nCeil*(nCeil+1))/2
-    return int(min(fuelFloor,fuelCeil))
+        fuelCeil += int((nCeil*(nCeil+1))/2)
+    return min(fuelFloor,fuelCeil)
 
-crabList = open("input7.txt").readline().split(',')
-crabs = []
-for c in crabList:
-    crabs.append(int(c))
+crabList = open("input7.txt").readline()
+crabs = [int(num) for num in crabList.split(',')]
 print("Part 1:", part1(crabs))
 print("Part 2:", part2(crabs))
