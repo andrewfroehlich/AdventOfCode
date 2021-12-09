@@ -12,12 +12,12 @@ def part1():
 def part2():
     with open("input9.txt") as f:
         lines = f.read().splitlines()
-    seen = [[False for i in range(len(lines[0]))] for j in range(len(lines))]
+    seen = set()
     
     def area(x,y):
-        if x<0 or x>=len(lines) or y<0 or y>=len(lines[x]) or seen[x][y] or lines[x][y] == "9":
+        if x<0 or x>=len(lines) or y<0 or y>=len(lines[x]) or (x,y) in seen or lines[x][y] == "9":
             return 0
-        seen[x][y] = True
+        seen.add((x,y))
         return 1 + area(x+1,y) + area(x-1,y) + area(x,y-1) + area(x,y+1)
     
     islandSizes = []
