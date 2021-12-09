@@ -5,7 +5,10 @@ def part1():
     for i in range(len(lines)):
         for j in range(len(lines[i])):
             value = int(lines[i][j])
-            if (i==0 or int(lines[i-1][j])>value) and (i==len(lines)-1 or int(lines[i+1][j])>value) and (j==0 or int(lines[i][j-1])>value) and (j==len(lines[i])-1 or int(lines[i][j+1])>value):
+            if (i==0 or int(lines[i-1][j])>value) and \
+              (i==len(lines)-1 or int(lines[i+1][j])>value) and \
+              (j==0 or int(lines[i][j-1])>value) and \
+              (j==len(lines[i])-1 or int(lines[i][j+1])>value):
                 answer += 1 + value
     return answer
 
