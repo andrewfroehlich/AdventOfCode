@@ -7,19 +7,16 @@ part1 = 0
 part2 = []
 for line in f:
     stack = []
-    corrupted = False
     for c in line.strip():
         if c in closeToOpen:
-            match = stack.pop()
-            if closeToOpen[c] != match:
+            if closeToOpen[c] != stack.pop():
                 part1 += illegalScore[c]
-                corrupted = True
                 break
         else:
             stack.append(c)
-    if not corrupted:
+    else:
         score = 0
-        while len(stack) > 0:
+        while bool(stack):
             score = (score * 5) + completeScore[stack.pop()]
         part2.append(score)
 
