@@ -1,0 +1,31 @@
+from collections import defaultdict
+
+f = open("input12.txt")
+edges = defaultdict(list)
+for line in f:
+    points = line.strip().split('-')
+    if points[1] != "start" and points[0] != "end":
+        edges[points[0]].append(points[1])
+    if points[0] != "start" and points[1] != "end":
+        edges[points[1]].append(points[0])
+
+def traverse(current, visited, path, smallCaveRevisited):
+    if not current[0].isupper():
+        visited.add(current) #only say visited if small cave
+    path = path + "-" + current
+    if current == "end":
+        global paths
+        paths.add(path)
+    else:
+        for point in edges[current]:
+            if point not in visited:
+                traverse(point, visited.copy(), path, smallCaveRevisited)
+            elif not smallCaveRevisited:
+                traverse(point, visited.copy(), path, True)
+
+paths = set()
+traverse("start", set(), "", True)
+print("Part 1:",len(paths))
+paths = set()
+traverse("start", set(), "", False)
+print("Part 2:",len(paths))
