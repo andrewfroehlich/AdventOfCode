@@ -9,23 +9,22 @@ for line in f:
     if points[0] != "start" and points[1] != "end":
         edges[points[1]].append(points[0])
 
-def traverse(current, visited, path, smallCaveRevisited):
+def traverse(current, visited, smallCaveRevisited):
     if not current[0].isupper():
         visited.add(current) #only say visited if small cave
-    path = path + "-" + current
     if current == "end":
         global paths
-        paths.add(path)
+        paths += 1
     else:
         for point in edges[current]:
             if point not in visited:
-                traverse(point, visited.copy(), path, smallCaveRevisited)
+                traverse(point, visited.copy(), smallCaveRevisited)
             elif not smallCaveRevisited:
-                traverse(point, visited.copy(), path, True)
+                traverse(point, visited.copy(), True)
 
-paths = set()
-traverse("start", set(), "", True)
-print("Part 1:",len(paths))
-paths = set()
-traverse("start", set(), "", False)
-print("Part 2:",len(paths))
+paths = 0
+traverse("start", set(), True)
+print("Part 1:",paths)
+paths = 0
+traverse("start", set(), False)
+print("Part 2:",paths)
