@@ -4,12 +4,12 @@ f = open("input12.txt")
 edges = defaultdict(list)
 for line in f:
     points = line.strip().split('-')
-    if points[1] != "start" and points[0] != "end":
+    if points[0] != "end" and points[1] != "start":
         edges[points[0]].append(points[1])
-    if points[0] != "start" and points[1] != "end":
+    if points[1] != "end" and points[0] != "start":
         edges[points[1]].append(points[0])
 
-def traverse(current, visited, smallCaveRevisited):
+def traverse(current, visited, revisited):
     if not current[0].isupper():
         visited.add(current) #only say visited if small cave
     if current == "end":
@@ -18,8 +18,8 @@ def traverse(current, visited, smallCaveRevisited):
     else:
         for point in edges[current]:
             if point not in visited:
-                traverse(point, visited.copy(), smallCaveRevisited)
-            elif not smallCaveRevisited:
+                traverse(point, visited.copy(), revisited)
+            elif not revisited: #can still revisit once
                 traverse(point, visited.copy(), True)
 
 paths = 0
