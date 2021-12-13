@@ -5,14 +5,15 @@ xtoy = defaultdict(set)
 ytox = defaultdict(set)
 maxX = maxY = 0
 folds = []
+parseFolds = False
 for line in f:
     if line.strip() == "":
-        continue
-    elif ',' in line:
+        parseFolds = True
+    elif not parseFolds:
         coord = line.strip().split(',')
         x = int(coord[0])
-        maxX = x if x > maxX else maxX
         y = int(coord[1])
+        maxX = x if x > maxX else maxX
         maxY = y if y > maxY else maxY
         xtoy[x].add(y)
         ytox[y].add(x)
@@ -25,13 +26,12 @@ while len(folds) > 0:
     foldAxis,foldLine = folds.pop(0)
     foldingAxisDict = xtoy if foldAxis == 'x' else ytox
     oppositeAxisDict = ytox if foldAxis == 'x' else xtoy
-    maxVal = maxX if foldAxis == 'x' else maxY
-    for i in range(foldLine+1,maxVal+1):
-        for point in foldingAxisDict[i]:
-            oppositeAxisDict[point].remove(i)
-            oppositeAxisDict[point].add(foldLine - (i - foldLine))
-            foldingAxisDict[(foldLine - (i - foldLine))].add(point)
-        foldingAxisDict[i].clear()
+    for i in range(foldLine,maxX+1 if foldAxis == 'x' else maxY+1):
+        for j in foldingAxisDict[i]:
+            oppositeAxisDict[j].remove(i)
+            oppositeAxisDict[j].add(foldLine - (i - foldLine))
+            foldingAxisDict[(foldLine - (i - foldLine))].add(j)
+        del foldingAxisDict[i]
     if foldAxis == 'x':
         maxX = foldLine-1
     else:
