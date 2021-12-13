@@ -1,9 +1,5 @@
-from collections import defaultdict
-
 f = open("input13.txt")
-xtoy = defaultdict(set)
-ytox = defaultdict(set)
-maxX = maxY = 0
+points = set()
 folds = []
 parseFolds = False
 for line in f:
@@ -11,43 +7,34 @@ for line in f:
         parseFolds = True
     elif not parseFolds:
         coord = line.strip().split(',')
-        x = int(coord[0])
-        y = int(coord[1])
-        maxX = x if x > maxX else maxX
-        maxY = y if y > maxY else maxY
-        xtoy[x].add(y)
-        ytox[y].add(x)
+        points.add((int(coord[0]),int(coord[1])))
     else:
         fold = line.strip().split('=')
         folds.append((fold[0][-1],int(fold[1])))
 
 first = True
+maxX = maxY = 0
 while len(folds) > 0:
     foldAxis,foldLine = folds.pop(0)
-    foldingAxisDict = xtoy if foldAxis == 'x' else ytox
-    oppositeAxisDict = ytox if foldAxis == 'x' else xtoy
-    for i in range(foldLine,maxX+1 if foldAxis == 'x' else maxY+1):
-        for j in foldingAxisDict[i]:
-            oppositeAxisDict[j].remove(i)
-            oppositeAxisDict[j].add(foldLine - (i - foldLine))
-            foldingAxisDict[(foldLine - (i - foldLine))].add(j)
-        del foldingAxisDict[i]
+    newset = set()
+    for x,y in points:
+        if foldAxis == 'x':
+            newset.add((x,y) if x<foldLine else ((foldLine-(x-foldLine)),y))
+        else:
+            newset.add((x,y) if y<foldLine else (x,(foldLine-(y-foldLine))))
     if foldAxis == 'x':
         maxX = foldLine-1
     else:
         maxY = foldLine-1
+    points = newset
     if first:
-        count = 0
-        for x in range(maxX+1):
-            count += len(xtoy[x])
-        print("Part 1:",count)
+        print("Part 1:",len(points))
         first = False
 
 print("Part 2:")
 grid = [['.' for x in range(maxX+1)] for y in range(maxY+1)]
-for x in range(maxX+1):
-    for y in xtoy[x]:
-        grid[y][x] = '#'
+for x,y in points:
+    grid[y][x] = '#'
 for line in grid:
     print(''.join(line))
 
