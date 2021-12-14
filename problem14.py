@@ -80,10 +80,10 @@ current = template.head
 nextNode = current.next
 while nextNode is not None:
     key = current.data+nextNode.data
-    for c in allchars:
-        countsSum[c] = countsSum[c] + cache20[key][c]
     current = nextNode
     nextNode = current.next
+    for c in allchars:
+        countsSum[c] = countsSum[c] + cache20[key][c] - (1 if key[1] == c and nextNode is not None else 0) #remove double counting
 print("Counts Sum Complete")
 
 # Print all counts and the Part 2 answer
@@ -93,3 +93,29 @@ for c in allchars:
     maxCount = countsSum[c] if countsSum[c] > maxCount else maxCount
     minCount = countsSum[c] if (countsSum[c] < minCount or minCount == -1) else minCount
 print("Part 2:",maxCount-minCount)
+
+
+#V 439051102821
+#P 977393099208
+#N 3067784388562
+#H 3800433128803
+#S 619697444903
+#C 2804420769138
+#K 1634200947813
+#B 1382279882429
+#O 3898229386832
+#F 2267250700179
+#Part 2: 3459178284011
+
+#right:
+F 2267248527101
+K 1634199382184
+C 2804418100771
+O 3898225660655
+B 1382278561174
+N 3067781482737
+P 977392169054
+H 3800429511266
+V 439050679634
+S 619696853169
+Part 2: 3459174981021
