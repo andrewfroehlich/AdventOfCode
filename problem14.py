@@ -1,6 +1,6 @@
 from collections import defaultdict
 
-def run(totalSteps):
+def run(steps):
     t,pairs = open("input14.txt").read().split("\n\n")
     polymers = dict((i for i in l.split(" -> ")) for l in pairs.strip().split('\n'))
     paircount = defaultdict(int)
@@ -10,14 +10,12 @@ def run(totalSteps):
         paircount[t[index]+t[index+1]] += 1
 
     #run steps
-    step = 0
-    while step < totalSteps:
+    for s in range(steps):
         newpaircount = defaultdict(int)
         for key in paircount:
             newpaircount[key[0]+polymers[key]] += paircount[key]
             newpaircount[polymers[key]+key[1]] += paircount[key]
         paircount = newpaircount
-        step += 1
 
     #enumerate all possible chars
     allchars = set()
