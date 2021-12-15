@@ -11,12 +11,12 @@ def dijkstra(graph):
     neighbors = [(-1,0),(0,1),(1,0),(0,-1)]
     min_heap = [(0, (0,0))] 
     while min_heap:
-        cur_dist, current = heapq.heappop(min_heap)
-        if current in visited:
+        cur_dist, cur_coord = heapq.heappop(min_heap)
+        if cur_coord in visited:
             continue
-        visited.add(current)
+        visited.add(cur_coord)
 
-        x,y = current
+        x,y = cur_coord
         for i,j in neighbors:
             if isValid(x+i,y+j,len(graph)-1,len(graph[0])-1) and (x+i,y+j) not in visited:
                 this_dist = cur_dist + graph[x+i][y+j]
@@ -34,7 +34,7 @@ def build_mega_graph(base_graph):
             while val > 9:
                 val -= 9
             graph[i][j] = val
-    return dijkstra(graph)
+    return graph
 
 graph = [[int(c) for c in l] for l in open("input15.txt").read().strip().split('\n')]
 print("Part 1:",dijkstra(graph))
