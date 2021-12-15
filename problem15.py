@@ -22,8 +22,10 @@ def dijkstra(graph):
                 this_dist = cur_dist + graph[x+i][y+j]
                 if this_dist < distance[x+i][y+j]:
                     distance[x+i][y+j] = this_dist
+                    if distance[-1][-1] != sys.maxsize:
+                        return distance[-1][-1]
                     heapq.heappush(min_heap, (this_dist, (x+i,y+j)))
-    return distance[-1][-1]
+    return -1
 
 def build_mega_graph(base_graph):
     graph = [[0 for c in range(len(base_graph[0])*5)] for l in range(len(base_graph)*5)]
