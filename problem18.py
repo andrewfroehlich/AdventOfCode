@@ -18,6 +18,7 @@ class Node:
             self.left = Node
         else:
             self.right = Node
+
 def parse(line):
     depth = 0
     root = None
@@ -35,18 +36,20 @@ def parse(line):
             depth -= 1
         elif c != ',' and c != ' ':
             newNode = Node(depth, int(c))
-            if currentNode:
-                currentNode.add(newNode)
+            currentNode.add(newNode)
             while currentNode and currentNode.right:
                 currentNode = currentNode.parent
     return root
 def incrementDepth(root):
-    if not root:
-        return
-    else:
+    if root:
         root.depth += 1
         incrementDepth(root.left)
         incrementDepth(root.right)
+def addNodes(node1, node2):
+    incrementDepth(node1)
+    incrementDepth(node2)
+    newRoot = Node(0, None, node1, node2)
+    return newRoot
 def printTree(root):
     if not root:
         return ""
@@ -78,8 +81,7 @@ def reduceStep(root):
             if lastLeafFound:
                 lastLeafFound.value += currentNode.left.value
             explodeRight = currentNode.right.value
-            currentNode.left = None
-            currentNode.right = None
+            currentNode.left = currentNode.right = None
             currentNode.value = 0
             if len(stack) == 0:
                 break
@@ -98,10 +100,7 @@ def reduceStep(root):
             currentNode = currentNode.right
         else:
             break
-    if found:
-        return True
     #find split candidate
-    stack.clear()
     currentNode = root
     while not found:
         if currentNode is not None:
@@ -117,10 +116,9 @@ def reduceStep(root):
             break
     return found
 def split(node):
-    val = node.value
+    node.add(Node(node.depth+1, math.floor(node.value/2)))
+    node.add(Node(node.depth+1, math.ceil(node.value/2)))
     node.value = None
-    node.add(Node(node.depth+1, math.floor(val/2)))
-    node.add(Node(node.depth+1, math.ceil(val/2)))
 
 def part1():
     f = open("input18.txt")
@@ -130,10 +128,7 @@ def part1():
         if not root:
             root = current
         else:
-            incrementDepth(root)
-            incrementDepth(current)
-            newRoot = Node(0, None, root, current)
-            root = newRoot
+            root = addNodes(root, current)
         reduce(root)
     return magnitude(root)
 def part2():
@@ -142,15 +137,9 @@ def part2():
     for i in range(0,len(f)):
         for j in range(0,len(f)):
             if i != j:
-                tree1 = parse(f[i].strip())
-                tree2 = parse(f[j].strip())
-                incrementDepth(tree1)
-                incrementDepth(tree2)
-                root = Node(0,None,tree1,tree2)
+                root = addNodes(parse(f[i].strip()), parse(f[j].strip()))
                 reduce(root)
-                mag = magnitude(root)
-                maxMagnitude = mag if mag > maxMagnitude else maxMagnitude
+                maxMagnitude = max(maxMagnitude, magnitude(root))
     return maxMagnitude
-
 print("Part 1:",part1())
 print("Part 2:",part2())
