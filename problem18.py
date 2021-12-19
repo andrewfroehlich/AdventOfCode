@@ -34,7 +34,7 @@ def parse(line):
             depth += 1
         elif c == ']':
             depth -= 1
-        elif c != ',' and c != ' ':
+        elif c.isnumeric():
             newNode = Node(depth, int(c))
             currentNode.add(newNode)
             while currentNode and currentNode.right:
@@ -50,13 +50,6 @@ def addNodes(node1, node2):
     incrementDepth(node2)
     newRoot = Node(0, None, node1, node2)
     return newRoot
-def printTree(root):
-    if not root:
-        return ""
-    elif root.value is not None:
-        return str(root.value)
-    else:
-        return "[" + printTree(root.left) + "," + printTree(root.right) + "]"
 def magnitude(root):
     if not root:
         return
@@ -65,9 +58,9 @@ def magnitude(root):
     else:
         return 3*magnitude(root.left) + 2*magnitude(root.right)
 def reduce(root):
-    moreReduction = True
-    while moreReduction:
-        moreReduction = reduceStep(root)
+    reduceAgain = True
+    while reduceAgain:
+        reduceAgain = reduceStep(root)
 def reduceStep(root):
     stack = deque()
     currentNode = root
