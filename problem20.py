@@ -23,4 +23,4 @@ while steps <= 50:
     if steps == 2:
         print("Part 1:",len(image))
     steps += 1
-print("Part 1:",len(image))
+print("Part 2:",len(image))
