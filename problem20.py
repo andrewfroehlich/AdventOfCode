@@ -8,8 +8,7 @@ for i in range(len(imageLines)):
 binary_mask = [(1,1),(1,0),(1,-1),(0,1),(0,0),(0,-1),(-1,1),(-1,0),(-1,-1)]
 x_range = (0,len(imageLines))
 y_range = (0, len(imageLines[0]))
-steps = 1
-while steps <= 50:
+for steps in range(1,51):
     new_image = set()
     for x in range(x_range[0]-5-steps, x_range[1]+5+steps):
         for y in range(y_range[0]-5-steps, y_range[1]+5+steps):
@@ -22,5 +21,4 @@ while steps <= 50:
     image = new_image.copy()
     if steps == 2:
         print("Part 1:",len(image))
-    steps += 1
 print("Part 2:",len(image))
