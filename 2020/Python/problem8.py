@@ -1,9 +1,9 @@
 lines = open("../Resources/problem8.txt").readlines()
 
 def runInstruction(index,acc,swapIndex):
-    instruction = lines[index].strip().split()
-    value = int(instruction[1][1:]) * (1 if instruction[1][0:1]=="+" else -1)
-    if instruction[0] == "jmp":
+    inst,strValue = lines[index].strip().split()
+    value = int(strValue)
+    if inst == "jmp":
         if swapIndex == index:
             index += 1
         else:
@@ -13,7 +13,7 @@ def runInstruction(index,acc,swapIndex):
             index += value
         else:
             index += 1
-            if instruction[0] == "acc":
+            if inst == "acc":
                 acc += value
     return index,acc
 
