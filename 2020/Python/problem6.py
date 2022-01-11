@@ -1,6 +1,6 @@
 
 def part1():
-    f = open("/home/ec2-user/environment/AOC/Resources/problem6.txt")
+    f = open("../Resources/problem6.txt")
     s = set()
     answer = 0
     for current in f.readlines():
@@ -17,7 +17,7 @@ def part1():
 print(part1())
 
 def part2():
-    f = open("/home/ec2-user/environment/AOC/Resources/problem6.txt")
+    f = open("../Resources/problem6.txt")
     s = set()
     t = set()
     newgroup = True

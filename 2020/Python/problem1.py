@@ -1,6 +1,6 @@
 
 def part1():
-    f = open("/home/ec2-user/environment/AOC/Resources/problem1.txt")
+    f = open("../Resources/problem1.txt")
     s = set()
     current = f.readline().strip()
     currentInt = 0
@@ -16,7 +16,7 @@ def part1():
 print(part1())
 
 def part2():
-    f = open("/home/ec2-user/environment/AOC/Resources/problem1.txt")
+    f = open("../Resources/problem1.txt")
     s = set()
     values = []
     current = f.readline().strip()

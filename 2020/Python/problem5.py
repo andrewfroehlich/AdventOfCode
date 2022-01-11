@@ -1,6 +1,6 @@
 
 def problem5():
-    f = open("/home/ec2-user/environment/AOC/Resources/problem5.txt")
+    f = open("../Resources/problem5.txt")
     maxVal = 0
     ids = set()
     for current in f.readlines():

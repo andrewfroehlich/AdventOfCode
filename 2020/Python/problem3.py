@@ -1,6 +1,6 @@
 
 def problem3(slopes):
-    f = open("/home/ec2-user/environment/AOC/Resources/problem3.txt")
+    f = open("../Resources/problem3.txt")
 
     #skip line 1, tree counting begins on line 2
     current = f.readline().strip()

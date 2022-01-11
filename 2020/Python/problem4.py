@@ -4,7 +4,7 @@ import re
 validEyeColors = ["amb","blu","brn","gry","grn","hzl","oth"]
 
 def problem4(validateInputs):
-    f = open("/home/ec2-user/environment/AOC/Resources/problem4.txt")
+    f = open("../Resources/problem4.txt")
     valid = 0
     passport = ""
     for current in f.readlines():
