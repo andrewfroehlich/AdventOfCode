@@ -1,5 +1,5 @@
 def run(part2):
-    with open("input18.txt") as f:
+    with open("Resources/input18.txt") as f:
         lines = f.read().splitlines()
     len_x = len(lines)
     len_y = len(lines[0])
