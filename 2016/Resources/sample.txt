@@ -1,4 +1,2 @@
-abba[mnop]qrst
-abcd[bddb]xyyx
-aaaa[qwer]tyui
-ioxxoj[asdfgh]zxcvbn
+rect 50x6
+rotate row y=0 by 6
