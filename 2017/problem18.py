@@ -1,5 +1,4 @@
-from collections import defaultdict
-from collections import deque
+from collections import defaultdict,deque
 
 def getValue(var, reg):
     return int(var) if var.strip("-").isnumeric() else reg[var]
