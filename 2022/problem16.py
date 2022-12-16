@@ -60,7 +60,8 @@ def part1(flows,paths):
     return max_pressure
 
 def part2(flows,paths):
-    bfs = deque([("AA",0,"AA",0,0,set(["AA"]),True)]) #my valve, my step, elephant valve, elephant step, pressure relieved,visited,el_moving (count elephants spot)
+    #my valve, my step, elephant valve, elephant step, pressure relieved, visited, el_moving (count elephants valve)
+    bfs = deque([("AA",0,"AA",0,0,set(["AA"]),True)]) 
     max_pressure = 0
     while bfs:
         current,step,el_cur,el_step,pressure,visited,el_moving = bfs.pop() # dfs for short-circuiting
@@ -84,25 +85,21 @@ def part2(flows,paths):
         #find all possible paths from here
         for target in paths[current]:
             if target not in visited and step+paths[current][target] <= 24:
-                #el_found = False
                 new_visited = visited.copy()
                 new_visited.add(target)
                 for el_target in paths[el_cur]:
                     if el_target not in new_visited and el_step+paths[el_cur][el_target] <= 24:
-                        #el_found = True
                         el_visited = new_visited.copy()
                         el_visited.add(el_target)
                         bfs.append( (target, step+paths[current][target], el_target, el_step+paths[el_cur][el_target], pressure, el_visited, True) )
                 if step+paths[current][target] <= 24 and el_step <= 24:
                     bfs.append( (target, step+paths[current][target], el_cur, el_step, pressure, new_visited, False) )
+        
         #whether we have stopped moving or not, check if we have reached the highest pressure relief
         if step <= 26 and el_step <= 26:
             max_pressure = max(max_pressure, pressure)
     return max_pressure
 
 flows,paths = parse_input("input16.txt")
-#print(flows)
-#print(paths)
 print("Part 1:",part1(flows,paths))
 print("Part 2:",part2(flows,paths))
-#3177 is too high
