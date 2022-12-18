@@ -8,9 +8,8 @@ def build_cubes(file):
 
 def part1(cubes):
     part1 = 0
-    for cube in cubes:
-        part1 += 6# - find_adjacent_count(cube,cubes)
-        x,y,z = cube
+    for x,y,z in cubes:
+        part1 += 6
         for a,b,c in [(1,0,0),(-1,0,0),(0,1,0),(0,-1,0),(0,0,1),(0,0,-1)]:
             if (x+a,y+b,z+c) in cubes:
                 part1 -= 1
