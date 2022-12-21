@@ -8,26 +8,9 @@ def build_dict():
         else:
             lines.append(line)
     return m,lines
-
-def part1():
-    m,lines = build_dict()
-    while lines and "root" not in m:
-        lines2 = []
-        for line in lines:
-            spl = line.split()
-            if spl[1] in m and spl[3] in m:
-                m[spl[0][0:-1]] = int(eval("".join([str(m[spl[1]]),spl[2],str(m[spl[3]])])))
-            else:
-                lines2.append(line)
-        lines = lines2
-    return m["root"]
-
-def part2():
-    m,lines = build_dict()
-    del m["humn"]
-    iterating = True
     
-    #reduce numbers and add var=number conditions to the dictionary
+def reduce(m,lines):
+    iterating = True
     while lines and "root" not in m and iterating:
         lines2 = []
         iterating = False
@@ -39,8 +22,19 @@ def part2():
             else:
                 lines2.append(line)
         lines = lines2
+    return m,lines
+
+def part1():
+    m,lines = build_dict()
+    m,lines = reduce(m,lines)
+    return m["root"]
+
+def part2():
+    m,lines = build_dict()
+    del m["humn"]
+    m,lines = reduce(m,lines)
     
-    #now just add remaining lines as-is
+    #now add remaining lines to dictionary as-is (with variable names)
     for line in lines:
         spl = line.split(": ")
         m[spl[0]] = spl[1]
