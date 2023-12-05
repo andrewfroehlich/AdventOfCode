@@ -26,9 +26,7 @@ def part2():
         sections = f.read().split("\n\n")
     seed_list = [int(s) for s in sections[0].split(": ")[-1].split()]
     sections.pop(0)
-    seeds = []
-    for i in range(0, len(seed_list), 2):
-        seeds.append( (seed_list[i],seed_list[i+1]) )
+    seeds = [(seed_list[i],seed_list[i+1]) for i in range(0,len(seed_list),2)]
     
     mappings = []
     for section in sections:
