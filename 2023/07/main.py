@@ -6,13 +6,11 @@ def hand_rank(part_num, cards):
     else:
         c = Counter(cards)
         jokers = c.pop("J") if "J" in c else 0
-        if c:
-            most_common = [str(v[1]) for v in c.most_common(2)]
-            if(jokers > 0):
-                most_common[0] = str(int(most_common[0])+jokers)
-            return "".join(most_common)
-        else:
+        if not c:
             return "5" #if c is now empty, we only had Jokers
+        most_common = [str(v[1]) for v in c.most_common(2)]
+        most_common[0] = str(int(most_common[0])+jokers) if jokers else most_common[0]
+        return "".join(most_common)
 
 def solve(part_num):
     by_hand_type = {"5":[],"41":[],"32":[],"31":[],"22":[],"21":[],"11":[]}
