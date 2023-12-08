@@ -12,11 +12,11 @@ def parse():
 def part1():
     directions,m = parse()
     current = 'AAA'
-    step = 1
+    step = 0
     while current != 'ZZZ':
-        current = m[current][0] if directions[(step-1) % len(directions)] == 'L' else m[current][1]
+        current = m[current][0] if directions[(step) % len(directions)] == 'L' else m[current][1]
         step += 1
-    return step-1
+    return step
     
 def part2():
     directions,m = parse()
@@ -26,11 +26,11 @@ def part2():
             currents.append(k)
     steps = []
     for i in range(len(currents)):
-        step = 1
+        step = 0
         while currents[i][-1] != 'Z':
-            currents[i] = m[currents[i]][0] if directions[(step-1) % len(directions)] == 'L' else m[currents[i]][1]
+            currents[i] = m[currents[i]][0] if directions[(step) % len(directions)] == 'L' else m[currents[i]][1]
             step += 1
-        steps.append(step-1)
+        steps.append(step)
     return lcm(*steps)
 
 if __name__ == '__main__':
