@@ -57,12 +57,12 @@ def recurse(line, numbers, buffer_size):
     # success/continuation
     n = 0
     if line[0] == "#" or line[0] == "?":
-        n += recurse(line[1:], numbers, buffer_size+1)
+        n += recurse(line[1:], numbers, buffer_size+1) # add to the gear buffer size
     if line[0] == "." or line[0] == "?": # catch ? in both cases, count for both possibilities
-        if buffer_size == 0: #start a new one
-            n += recurse(line[1:], numbers, 0) #move forward
+        if buffer_size == 0: 
+            n += recurse(line[1:], numbers, 0) # move forward waiting for next gear
         elif len(numbers) > 0 and numbers[0] == buffer_size:
-            n += recurse(line[1:], numbers[1:], 0) #advance to the next number
+            n += recurse(line[1:], numbers[1:], 0) # gear matches, advance to the next number
     return n
 
 if __name__ == "__main__":
