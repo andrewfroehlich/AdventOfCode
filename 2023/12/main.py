@@ -1,6 +1,7 @@
 from itertools import combinations
 from functools import cache
 
+# brute force solution; part 2 recursive works, too
 def part1():
     with open("input.txt") as f:
         lines = f.read().splitlines()
@@ -24,40 +25,27 @@ def part1():
                 sum1 += 1
     return sum1
 
-def part1_recurse():
-    with open("input.txt") as f:
-        lines = f.read().splitlines()
-    sum1 = 0
-    for line in lines:
-        puzzle,numbers_raw = line.split()
-        numbers = [int(d) for d in numbers_raw.split(",")]
-        sum1 += recurse(puzzle, tuple(numbers), 0)
-    return sum1
-
 def part2():
     with open("input.txt") as f:
         lines = f.read().splitlines()
-    sum2 = 0
-    line_num = 0
+    input_list = []
     for line in lines:
         puzzle,numbers_raw = line.split()
-        puzzle = 5*(puzzle + "?")
-        puzzle = puzzle[:-1]
-        numbers = [int(d) for d in numbers_raw.split(",")]
-        numbers = 5*numbers
-        sum2 += recurse(puzzle, tuple(numbers), 0)
-    return sum2
+        puzzle = str(5*(puzzle + "?"))[:-1]
+        numbers = 5*[int(d) for d in numbers_raw.split(",")]
+        input_list.append( (puzzle,numbers) )
+    return sum([recurse(puzzle,tuple(numbers),0) for puzzle,numbers in input_list])
 
+# line: puzzle still left to process (string), i.e. "..###??#.?..."
+# numbers: groups of gears we still need to find (tuple, to be cachable), i.e. ( (1,3,3,...) )
+# buffer_size: size of the current gear we are looking at, as we move 1 char at a time (int)
 @cache
-# line is the puzzle still left to process
-# numbers is the groups of gears we still need to find (tuple, to be cachable)
-# buffer_size is the size of the current gear we are looking at, as we move 1 char at a time
 def recurse(line, numbers, buffer_size):
     # base (no line left)
     if len(line) == 0:
         if len(numbers) == 1 and numbers[0] == buffer_size:
-            return 1 # final group matches the buffer, so match
-        elif len(numbers) == 0 and buffer_size == 0:
+            return 1 # final group matches the buffer to end the line, so match
+        if len(numbers) == 0 and buffer_size == 0:
             return 1 # nothing left to find so this counts
         else:
             return 0 # other cases shouldn't match if we ran out of line
@@ -65,7 +53,7 @@ def recurse(line, numbers, buffer_size):
     if len(numbers) == 0 and buffer_size > 0:
         return 0 # we have a gear in the buffer that matches nothing
     elif len(numbers) > 0 and numbers[0] < buffer_size:
-        return 0 # too big
+        return 0 # gear is too big already
     # success/continuation
     n = 0
     if line[0] == "#" or line[0] == "?":
@@ -79,5 +67,4 @@ def recurse(line, numbers, buffer_size):
 
 if __name__ == "__main__":
     print("Part 1:",part1())
-    print("Part 1 Recursive:",part1_recurse())
     print("Part 2:",part2())
