@@ -1,8 +1,8 @@
 def horizontal(p,smudge_target):
-    for r in range(1,len(p)):
+    for r in range(1,len(p)): # iterate over possible rows of reflection
         smudges_found = 0
-        for i in range(0,min(len(p)-r,r)):
-            for j in range(len(p[0])):
+        for i in range(0,min(len(p)-r,r)): # iterate in both directions away from that row of reflection
+            for j in range(len(p[0])): # for each line, check equality character by character for accurate smudge count
                 smudges_found += 1 if p[r+i][j] != p[r-i-1][j] else 0
                 if smudges_found > smudge_target:
                     break
