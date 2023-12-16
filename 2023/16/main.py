@@ -16,6 +16,7 @@ def solve():
               "/":{(1,0):[(0,-1)],(-1,0):[(0,1)],(0,1):[(-1,0)],(0,-1):[(1,0)]},
               "\\":{(1,0):[(0,1)],(-1,0):[(0,-1)],(0,1):[(1,0)],(0,-1):[(-1,0)]}}
     context = (mirrors,direct,max_x,max_y)
+    
     p1 = p2_max = run_bfs((0,0),(1,0),context)
     for x in range(max_x):
         p2_max = max(p2_max, run_bfs((x,0),(0,1),context), run_bfs((x,max_y-1),(0,-1),context))
@@ -31,7 +32,7 @@ def run_bfs(first_pt, first_dir, context):
     while bfs:
         c_pt, c_dir = bfs.popleft()
         if (c_pt,c_dir) in seen or not (0 <= c_pt[0] < max_x) or not (0 <= c_pt[1] < max_y):
-            continue # don't continue if we've processed this point+direction before or we're out of the grid
+            continue # don't proceed if we've processed this point+direction before or we're out of the grid
         seen.add( (c_pt,c_dir) )
         lit.add(c_pt)
         if c_pt in mirrors: 
@@ -39,6 +40,7 @@ def run_bfs(first_pt, first_dir, context):
                 bfs.append( ((c_pt[0]+i,c_pt[1]+j), (i,j)) )
         else:
             bfs.append( ((c_pt[0]+c_dir[0],c_pt[1]+c_dir[1]), c_dir) )
+    
     return len(lit)
 
 if __name__ == "__main__":
