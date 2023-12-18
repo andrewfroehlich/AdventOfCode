@@ -1,11 +1,8 @@
-from collections import deque
-
 def part1():
     direct = {"U":(0,-1),"R":(1,0),"L":(-1,0),"D":(0,1)}
     directions = []
     for line in open("input.txt"):
         d,n,_ = line.strip().split()
-        i,j = direct[d]
         directions.append( (int(n),direct[d]) )
     return shoelace_pick(directions)
     
@@ -14,9 +11,7 @@ def part2():
     directions = []
     for line in open("input.txt"):
         code = line.strip().split("#")[1][:-1]
-        steps = int(code[:-1],16)
-        d = direct[int(code[-1])]
-        directions.append( (steps,d) )
+        directions.append( (int(code[:-1],16), direct[int(code[-1])]) )
     return shoelace_pick(directions)
 
 def shoelace_pick(directions):
