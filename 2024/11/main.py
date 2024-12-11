@@ -6,9 +6,9 @@ def process_one_stone(blinks,stone):
         return 1
     if stone == 0:
         return process_one_stone(blinks-1,1)
-    if len(str(stone))%2 == 0:
-        cur_str = str(stone)
-        return process_one_stone(blinks-1,int(cur_str[0:len(cur_str)//2])) + process_one_stone(blinks-1,int(cur_str[len(cur_str)//2:]))
+    s_str = str(stone)
+    if len(s_str)%2 == 0:
+        return process_one_stone(blinks-1,int(s_str[0:len(s_str)//2])) + process_one_stone(blinks-1,int(s_str[len(s_str)//2:]))
     else:
         return process_one_stone(blinks-1,stone*2024)
 
